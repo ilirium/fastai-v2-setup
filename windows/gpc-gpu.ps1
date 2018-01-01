@@ -91,15 +91,15 @@ If($LASTEXITCODE -eq 0){
 							$firewallInfo.allowed | foreach { $rule=$_;
 								If ($($rule.IPProtocol) -eq "tcp" -and $($rule.ports) -eq '80'){
 									$http=$true
-									echo "Found Allow tcp/80 (http)."
+									echo "Found pre-existing rule: Allow tcp/80 (http)."
 								}
 								ElseIf ($($rule.IPProtocol) -eq "tcp" -and $($rule.ports) -eq '443'){
 									$https=$true
-									echo "Found Allow tcp/443 (https)."
+									echo "Found pre-existing rule: Allow tcp/443 (https)."
 								}
-								ElseIf ($($rule.IPProtocol) -eq "tcp" -and $($rule.ports) -eq '8888'){
+								ElseIf ($($rule.IPProtocol) -eq "tcp" -and $($rule.ports) -like '*8888*'){
 									$jupyter=$true
-									echo "Found Allow tcp/8888 (jupyter)"
+									echo "Found existing rule: Allow tcp/8888 (jupyter)"
 								}
 							}
 							If(-Not $http){
@@ -113,14 +113,19 @@ If($LASTEXITCODE -eq 0){
 							}
 							echo "# Connect to your instance:" >> $instanceName-commands.txt
 							echo "gcloud compute --project $projectId ssh --zone $zone $instanceName" >> $instanceName-commands.txt
+							echo ""
 							echo "# Alternative command to connect (using your default project and zone):" >> $instanceName-commands.txt
 							echo "gcloud compute ssh $instanceName" >> $instanceName-commands.txt
+							echo ""
 							echo "# Stop your instance: :" >> $instanceName-commands.txt
 							echo "gcloud compute instances stop $instanceName"  >> $instanceName-commands.txt
+							echo ""
 							echo "# Start your instance:" >> $instanceName-commands.txt
 							echo "gcloud compute instances start $instanceName"  >> $instanceName-commands.txt
+							echo ""
 							echo "# Reboot your instance:" >> $instanceName-commands.txt
 							echo "gcloud compute instances reset $instanceName"  >> $instanceName-commands.txt
+							echo ""
 							echo "# Address for Jupyter notebook in your browser:" >> $instanceName-commands.txt
 							echo "IP Address: $ipAddress" >> $instanceName-commands.txt
 
