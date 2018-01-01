@@ -91,15 +91,18 @@ If($LASTEXITCODE -eq 0){
 							$firewallInfo.allowed | foreach { $rule=$_;
 								If ($($rule.IPProtocol) -eq "tcp" -and $($rule.ports) -eq '80'){
 									$http=$true
-									echo "Found pre-existing rule: Allow tcp/80 (http)."
+									echo "Found pre-existing rule: Allow tcp/80 (http). Please check in the console that the rule applies to all instances or instances with the 'http' tag.""
+									echo ""
 								}
 								ElseIf ($($rule.IPProtocol) -eq "tcp" -and $($rule.ports) -eq '443'){
 									$https=$true
-									echo "Found pre-existing rule: Allow tcp/443 (https)."
+									echo "Found pre-existing rule: Allow tcp/443 (https). Please check in the console that the rule applies to all instances or instances with the 'https-server' tag.""
+									echo ""
 								}
 								ElseIf ($($rule.IPProtocol) -eq "tcp" -and $($rule.ports) -like '*8888*'){
 									$jupyter=$true
-									echo "Found existing rule: Allow tcp/8888 (jupyter)"
+									echo "Found existing rule: Allow tcp/8888 (jupyter). Please check in the console that the rule applies to all instances or instances with the 'jupyter' tag."
+									echo ""
 								}
 							}
 							If(-Not $http){
@@ -133,9 +136,13 @@ If($LASTEXITCODE -eq 0){
 							echo "gcloud compute instances delete $instanceName" >> $instanceName-remove.ps1
 							echo "gcloud compute addresses delete $addressName" >> $instanceName-remove.ps1
 
-							echo "All done. Find all you need to connect in the $instanceName-commands.txt file and to remove the stack call $instanceName-remove.ps1"
+							echo ""
+							echo "All done. Find the commands to connect in the $instanceName-commands.txt file. To remove the stack run $instanceName-remove.ps1"
+							echo ""
 
-							echo "Connect to your instance: gcloud compute --project $projectId ssh --zone $zone $instanceName"
+							echo "To connect to your instance: gcloud compute ssh $instanceName"
+							echo ""
+							echo "Launching Google Cloud online console in browser..."
 
 							Invoke-Expression "cmd.exe /C start https://console.cloud.google.com/compute/instances?project=$projectId"
 						}
