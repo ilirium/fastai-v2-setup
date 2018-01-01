@@ -80,7 +80,9 @@ If($LASTEXITCODE -eq 0){
 							gcloud compute addresses delete $addressName
 						}
 						Else{
+							echo ""
 							echo "Obtaining pre-existing firewall rules..."
+							echo ""
 							gcloud compute addresses list --filter="name=($addressName)"
 
 							$firewallInfo=gcloud compute firewall-rules list --format="json" | ConvertFrom-Json
@@ -91,12 +93,12 @@ If($LASTEXITCODE -eq 0){
 							$firewallInfo.allowed | foreach { $rule=$_;
 								If ($($rule.IPProtocol) -eq "tcp" -and $($rule.ports) -eq '80'){
 									$http=$true
-									echo "Found pre-existing rule: Allow tcp/80 (http). Please check in the console that the rule applies to all instances or instances with the 'http' tag.""
+									echo "Found pre-existing rule: Allow tcp/80 (http). Please check in the console that the rule applies to all instances or instances with the 'http' tag."
 									echo ""
 								}
 								ElseIf ($($rule.IPProtocol) -eq "tcp" -and $($rule.ports) -eq '443'){
 									$https=$true
-									echo "Found pre-existing rule: Allow tcp/443 (https). Please check in the console that the rule applies to all instances or instances with the 'https-server' tag.""
+									echo "Found pre-existing rule: Allow tcp/443 (https). Please check in the console that the rule applies to all instances or instances with the 'https-server' tag."
 									echo ""
 								}
 								ElseIf ($($rule.IPProtocol) -eq "tcp" -and $($rule.ports) -like '*8888*'){
