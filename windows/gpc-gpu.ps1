@@ -118,19 +118,19 @@ If($LASTEXITCODE -eq 0){
 							}
 							echo "# Connect to your instance:" >> $instanceName-commands.txt
 							echo "gcloud compute --project $projectId ssh --zone $zone $instanceName" >> $instanceName-commands.txt
-							echo ""
+							echo "" >> $instanceName-commands.txt
 							echo "# Alternative command to connect (using your default project and zone):" >> $instanceName-commands.txt
 							echo "gcloud compute ssh $instanceName" >> $instanceName-commands.txt
-							echo ""
+							echo "" >> $instanceName-commands.txt
 							echo "# Stop your instance: :" >> $instanceName-commands.txt
 							echo "gcloud compute instances stop $instanceName"  >> $instanceName-commands.txt
-							echo ""
+							echo "" >> $instanceName-commands.txt
 							echo "# Start your instance:" >> $instanceName-commands.txt
 							echo "gcloud compute instances start $instanceName"  >> $instanceName-commands.txt
-							echo ""
+							echo "" >> $instanceName-commands.txt
 							echo "# Reboot your instance:" >> $instanceName-commands.txt
 							echo "gcloud compute instances reset $instanceName"  >> $instanceName-commands.txt
-							echo ""
+							echo "" >> $instanceName-commands.txt
 							echo "# Address for Jupyter notebook in your browser:" >> $instanceName-commands.txt
 							echo "IP Address: $ipAddress" >> $instanceName-commands.txt
 
