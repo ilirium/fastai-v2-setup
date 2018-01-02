@@ -47,4 +47,4 @@ sudo cp cuda/include/*.* /usr/local/cuda/include/
 sudo cp cuda/lib64/*.* /usr/local/cuda/lib64/
 pip install ipywidgets
 jupyter nbextension enable --py widgetsnbextension --sys-prefix
-source ~/.bashrc
+sudo reboot
