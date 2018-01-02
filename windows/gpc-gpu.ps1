@@ -71,7 +71,7 @@ If($LASTEXITCODE -eq 0){
 							$x+=1
 						}
 						$instanceName+=$x
-						echo "Attempting to create an instance in $zone operating Ubuntu 16.04 LTS, 4-Core CPU, 26GB RAM / 50GB SSD / Tesla K80 GPU..."
+						echo "Attempting to create instance in $zone: Ubuntu 16.04 LTS/ 4-vCPU/ 26GB RAM/ 50GB SSD/ Tesla K80 GPU..."
 						gcloud compute --project $projectId instances create $instanceName --zone $zone --address=$ipAddress --machine-type "n1-highmem-4" --subnet "default" --maintenance-policy "TERMINATE" --service-account default --scopes default --accelerator type=nvidia-tesla-k80,count=1 --min-cpu-platform "Intel Broadwell" --tags "jupyter","http-server","https-server" --image "ubuntu-1604-xenial-v20171212" --image-project "ubuntu-os-cloud" --boot-disk-size "50" --boot-disk-type "pd-ssd" --boot-disk-device-name $instanceName
 
 						If(-Not $LASTEXITCODE -eq 0){
@@ -80,11 +80,10 @@ If($LASTEXITCODE -eq 0){
 							gcloud compute addresses delete $addressName
 						}
 						Else{
+							gcloud compute addresses list --filter="name=($addressName)"
 							echo ""
 							echo "Obtaining pre-existing firewall rules..."
 							echo ""
-							gcloud compute addresses list --filter="name=($addressName)"
-
 							$firewallInfo=gcloud compute firewall-rules list --format="json" | ConvertFrom-Json
 							$http=$false
 							$https=$false
