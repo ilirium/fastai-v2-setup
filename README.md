@@ -1,7 +1,7 @@
 # fast.ai v2 setup guides
 
 ## Paperspace
-http://forums.fast.ai/t/paperspace-setup-help/9290/7
+http://forums.fast.ai/t/paperspace-setup-help/9290
 
 ## Crestle
 https://www.youtube.com/watch?v=IPBSB1HLNLo (4:15-6:15)
