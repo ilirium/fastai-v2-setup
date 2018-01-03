@@ -1,4 +1,4 @@
-# fast.ai v2 setup guides
+# Setup guides for fast.ai (version 2)
 
 ## Paperspace
 http://forums.fast.ai/t/paperspace-setup-help/9290
