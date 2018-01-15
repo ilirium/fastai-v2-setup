@@ -23,6 +23,7 @@ echo "${bg}                         ${reset}"
 echo "${bg}${black} Downloading ${green}Anaconda${black}... ${reset}"
 echo "${bg}                         ${reset}"
 cd ~
+sudo rm -R downloads
 mkdir downloads
 cd downloads
 wget https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh
@@ -37,6 +38,7 @@ echo "${bg}                           ${reset}"
 echo "${bg}${black} Downloading ${blue}fast.ai${black} v2... ${reset}"
 echo "${bg}                           ${reset}"
 cd ~
+sudo rm -R fastai
 git clone https://github.com/fastai/fastai.git
 cd fastai/
 echo "Setting path variable..."
@@ -55,6 +57,7 @@ echo "${bg}                                 ${reset}"
 echo ""
 echo "Downloading ${blue}dogscats dataset${reset}..."
 cd ..
+sudo rm -R data
 mkdir data
 cd data
 wget http://files.fast.ai/data/dogscats.zip
